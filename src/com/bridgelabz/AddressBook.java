@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 
 /**
  * @author Dell
- * UC11 - Ability to sort the entries in the
- * address book alphabetically by
- * Person’s name
+ * UC12 - Ability to sort the entries in
+ * the address book by City,
+ * State, or Zip
  */
 
 public class AddressBook {
@@ -41,14 +41,16 @@ public class AddressBook {
 			contactList.add(personContact);
 		}
 		else {
-			for(int i=0; i < contactList.size()-1; i++) {
+			boolean isDuplicate =false;
+			for(int i=0; i < contactList.size(); i++) {
 				if(contactList.get(i).firstName.equals(firstName1) && contactList.get(i).lastName.equals(lastName1)) {
-					System.out.println("Person already exists with same first name and last name");
+					//System.out.println("Person already exists with same first name and last name");
+					isDuplicate = true;
 					break;
 				}
-				else {
-					contactList.add(personContact);
-				}
+			}
+			if(isDuplicate == false) {
+				contactList.add(personContact);
 			}
 		}
 	}
@@ -137,6 +139,30 @@ public class AddressBook {
 		List<Contact> sortedAddressBook =  contactList.stream().sorted(Comparator.comparing(Contact::getFirstName)).collect(Collectors.toList());
 		
 		sortedAddressBook.forEach(contact -> contact.displayContact());
-		
+	}
+	
+	//UC12 - Ability to sort the entries in
+	// the address book by City,
+	// State, or Zip
+	public void sortAddressBookByCityOrStateOrZip(String option) {
+		List<Contact> sortedAddressBookByCityOrStateOrZip =  contactList.stream().collect(Collectors.toList());
+		switch(option) {
+			case "city" :
+				System.out.println("Display AddressBook in sorted order by city");
+				sortedAddressBookByCityOrStateOrZip.sort(Comparator.comparing(Contact::getCity));
+				break;
+				
+			case "state" :
+				System.out.println("Display AddressBook in sorted order by state");
+				sortedAddressBookByCityOrStateOrZip.sort(Comparator.comparing(Contact::getState));
+				break;
+				
+			case "zip" :
+				System.out.println("Display AddressBook in sorted order by zip");
+				sortedAddressBookByCityOrStateOrZip.sort(Comparator.comparing(Contact::getZip));
+				break;
+		}
+			
+		sortedAddressBookByCityOrStateOrZip.forEach(contact -> contact.displayContact());
 	}
 }

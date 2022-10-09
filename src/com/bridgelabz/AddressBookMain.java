@@ -8,9 +8,9 @@ import java.util.Scanner;
 
 /**
  * @author Dell
- * UC11 - Ability to sort the entries in the
- * address book alphabetically by
- * Person’s name
+ * UC12 - Ability to sort the entries in
+ * the address book by City,
+ * State, or Zip
  */
 
 public class AddressBookMain {
@@ -114,6 +114,17 @@ public class AddressBookMain {
 		for(int i=0;i<addressBookList.size();i++) {
 			addressBookList.get(i).sortAddressBook();
 		}
+	
 		
+		//UC12 - Ability to sort the entries in
+		// the address book by City,
+		// State, or Zip
+		
+		System.out.println("Enter choice to sort Address Book upon");
+		String option = input.next();
+		
+		for(int i=0;i<addressBookList.size();i++) {
+			addressBookList.get(i).sortAddressBookByCityOrStateOrZip(option);
+		}
 	}
 }
